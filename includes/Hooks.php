@@ -17,10 +17,9 @@ class Hooks {
 	 * @param int $isExternal
 	 */
 	protected static function modifyLink( &$text, &$attribs, $isExternal = 0 ) {
-		if ( $text instanceof HtmlArmor ) {
-			$text = HtmlArmor::getHtml( $text );
-		}
-		if ( preg_match( '/^(.+)\(\((.*)\)\)$/', $text, $matches ) ) {
+		if ( preg_match( '/^(.+)\(\((.*)\)\)$/',
+						 $text instanceof HtmlArmor ? HtmlArmor::getHtml( $text ) : $text,
+						 $matches ) ) {
 			$text = trim( $matches[1] );
 			$rels = preg_split( '/\s+/', $matches[ 2 ] );
 
